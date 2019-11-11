@@ -1,7 +1,18 @@
 <template>
-  <b-navbar variant="faded" type="light">
-    <b-navbar-brand tag="h1" class="mb-0">KHL News Analyser</b-navbar-brand>
-  </b-navbar>
+  <div>
+    <b-navbar id="header" toggleable="lg" type="dark" variant="primary">
+
+      <b-navbar-brand >
+        <img alt="picture" id="logo" src="../pictures/khl-long.png">
+<!--        <span>KHL(hockey) news classifier</span>-->
+      </b-navbar-brand>
+
+<!--      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>-->
+
+      <b-collapse id="nav-collapse" is-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 
 <script>
@@ -11,5 +22,10 @@
 </script>
 
 <style scoped>
-
+  #logo {
+    width: 30%;
+  }
+  #header {
+    background-color: #172533 !important;
+    }
 </style>

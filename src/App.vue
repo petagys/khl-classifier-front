@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <Header></Header>
-    <HelloWorld/>
+    <MainPage></MainPage>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import Header from "./components/Header";
+import MainPage from "./components/MainPage";
 
 export default {
   name: 'App',
   components: {
       Header,
-    HelloWorld
+    MainPage
   }
 }
 </script>
@@ -23,8 +23,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /*text-align: center;*/
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
