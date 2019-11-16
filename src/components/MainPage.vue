@@ -8,16 +8,27 @@
               <b-card-header>
                 Введите текст
               </b-card-header>
-              <b-card-body>
-                <b-input v-model="someInput"></b-input>
-              </b-card-body>
-              <b-card-footer>
-                {{date}}
+              <b-form-textarea
+                id="textarea"
+                v-model="someText"
+                placeholder="Текст для примера..."
+                rows="10"
+                max-rows="20"
+              ></b-form-textarea>
+              <b-card-footer class="footer">
+                <b-button variant="primary" v-on:click="request">Проверить</b-button>
               </b-card-footer>
             </b-card>
         </b-col>
         <b-col cols="5">
-          <b-card></b-card>
+          <b-card>
+            <b-card-header>
+              Результат
+            </b-card-header>
+            <b-card-body>
+              {{result}}
+            </b-card-body>
+          </b-card>
         </b-col>
       </b-row>
     </b-container>
@@ -28,13 +39,28 @@
 
 
 <script>
+  import axios from 'axios';
+
     export default {
         name: 'HelloWorld',
         data() {
             return {
                 msg: 'Welcome to Your Vue.js App',
                 date: 'Я загрузил эту страницу за ' + new Date().toLocaleString(),
-                someInput: ''
+                someText: '',
+                result: null
+            }
+        },
+        methods:{
+            request: function(){
+                axios.post('http://localhost:8090/someText', {someText : this.someText})
+                    .then(response => (this.result = response.data))
+                    .catch(e => (console.log(e)))
+            },
+            test: function(){
+                axios.get('http://localhost:8090/greeting')
+                    .then(response => (this.result = response))
+                    .catch(e => (console.log(e)))
             }
         }
     }
@@ -58,5 +84,9 @@
 
   a {
     color: #42b983;
+  }
+
+  .footer{
+    text-align: right;
   }
 </style>
