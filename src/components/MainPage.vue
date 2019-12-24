@@ -1,36 +1,25 @@
 <template>
   <div class="hello">
 
-    <b-container>
-      <b-row align-h="center" class="mt-5">
-        <b-col cols="7">
-            <b-card>
-              <b-card-header>
-                Введите текст
-              </b-card-header>
-              <b-form-textarea
-                id="textarea"
-                v-model="someText"
-                placeholder="Текст для примера..."
-                rows="10"
-                max-rows="20"
-              ></b-form-textarea>
-              <b-card-footer class="footer">
-                <b-button variant="primary" v-on:click="request">Проверить</b-button>
-              </b-card-footer>
-            </b-card>
-        </b-col>
-        <b-col cols="5">
-          <b-card>
-            <b-card-header>
-              Результат
-            </b-card-header>
-            <b-card-body>
-              {{result}}
-            </b-card-body>
-          </b-card>
-        </b-col>
-      </b-row>
+
+    <b-container style="padding-top: 10px;" align-h="center">
+<!--      <b-row align-h="center" class="mt-5">-->
+<!--        <b-col cols="12">-->
+
+      <b-card no-body>
+        <b-tabs card>
+          <b-tab title="Классификация" active>
+            <ClassifyForm />
+          </b-tab>
+          <b-tab title="Просмотр статей">
+            <b-card-text>
+              <Articles />
+            </b-card-text>
+          </b-tab>
+        </b-tabs>
+      </b-card>
+<!--        </b-col>-->
+<!--      </b-row>-->
     </b-container>
 
 
@@ -40,15 +29,16 @@
 
 <script>
   import axios from 'axios';
+  import ClassifyForm from "./services/ClassifyForm";
+  import Articles from "./services/Articles";
 
     export default {
         name: 'HelloWorld',
-        data() {
+      components: {Articles, ClassifyForm},
+      data() {
             return {
                 msg: 'Welcome to Your Vue.js App',
-                date: 'Я загрузил эту страницу за ' + new Date().toLocaleString(),
-                someText: '',
-                result: null
+                date: 'Я загрузил эту страницу за ' + new Date().toLocaleString()
             }
         },
         methods:{
@@ -86,7 +76,4 @@
     color: #42b983;
   }
 
-  .footer{
-    text-align: right;
-  }
 </style>
