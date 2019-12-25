@@ -69,7 +69,6 @@
             this.result = response.data;
           })
           .catch(e => {
-            console.log(e);
             this.flag = false;})
       }
     }

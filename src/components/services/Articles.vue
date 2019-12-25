@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row align-h="center" class="mt-3">
-      <b-col cols="3" style="border-right: 1px solid lightgrey ">
+      <b-col cols="2" style="border-right: 1px solid lightgrey ">
         <b-button v-on:click="getTexts('hockey')" class="button" variant="primary">
           Хоккейные новости
         </b-button>
@@ -9,49 +9,82 @@
           Нехоккейные новости
         </b-button>
       </b-col>
-      <b-col cols="9">
-        <b-list-group>
-          <b-list-group-item button>Button item</b-list-group-item>
-          <b-list-group-item button>I am a button</b-list-group-item>
-          <b-list-group-item button>Disabled button</b-list-group-item>
-          <b-list-group-item button>This is a button too</b-list-group-item>
-        </b-list-group>
-        {{result}}
+      <b-col cols="10">
+        <div v-if="!flag">
+          <div v-if="!results.length == 0">
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="my-table"
+            />
+            <b-table
+              id="my-table"
+              :items="results"
+              :per-page="perPage"
+              :current-page="currentPage"
+              small
+            />
+          </div>
+        </div>
+        <div v-else>
+          <div class="text-center mb-3 d-flex justify-content-between">
+            <b-spinner
+              style="width: 3rem; height: 3rem;"
+              label="Large Spinner"
+              variant="primary"
+              key="dark"
+            >
+            </b-spinner>
+          </div>
+        </div>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-    import axios from "axios";
+  import axios from "axios";
 
-    export default {
-        name: "Articles",
-      data() {
-        return {
-          result: '',
-          someText: '',
-          flag: false
-        }
-      },
-      methods: {
-        getTexts: function (articles) {
-          this.flag = true;
-          axios.get('http://localhost:8090/getArticles/'+articles)
-            .then(response => {
+  export default {
+    name: "Articles",
+    data() {
+      return {
+        results: [],
+        flag: false,
+        currentPage: 1,
+        perPage: 5
+      }
+    },
+    computed: {
+      rows() {
+        return this.results.length
+      }
+    },
+    methods: {
+      getTexts: function (articles) {
+        this.flag = true;
+        this.results = [];
+        this.currentPage = 1;
+        axios.get('http://localhost:8090/getArticles/' + articles)
+          .then(response => {
               this.flag = false;
-              this.result = response.data;
-            })
-            .catch(e => {
-              console.log(e);
-              this.flag = false;})
-        }
+              this.results = response.data;
+          })
+          .catch(e => {
+            console.log(e);
+            this.flag = false;
+          })
       }
     }
+  }
 </script>
 
 <style scoped>
-.button{
-  margin: 10px;
-}
+  .button {
+    margin: 10px;
+  }
+  #my-table td{
+    text-align: justify;
+  }
 </style>
