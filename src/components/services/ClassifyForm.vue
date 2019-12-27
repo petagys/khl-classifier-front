@@ -76,11 +76,12 @@
 
             })
             .catch(e => {
+              console.log(e);
               this.flag = false;
+              this.result = 'Произошла ошибка. Скорее всего что-то с интернетом...'
             })
         }else{
           this.result = "Для более точной классификации текста необходимо ввести более 50 символов!";
-          console.log(this.someText.length);
         }
       }
     }

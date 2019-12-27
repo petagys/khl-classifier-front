@@ -77,6 +77,7 @@
           })
           .catch(e => {
             console.log(e);
+            this.results.push({"Error": "Что-то пошло не так и мы пытаемся это починить. Спасибо за Ваше терпение!"});
             this.flag = false;
           })
       }
