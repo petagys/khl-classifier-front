@@ -66,7 +66,7 @@
         this.flag = true;
         this.results = [];
         this.currentPage = 1;
-        axios.get('http://localhost:8090/getArticles/' + articles)
+        axios.get('http://localhost:8080/getArticles/' + articles)
           .then(response => {
             if (response.status === 200){
               this.flag = false;

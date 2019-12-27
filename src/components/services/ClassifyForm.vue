@@ -62,9 +62,9 @@
     },
     methods: {
       request: function () {
-        if (this.someText.length >= 50) {
+        if (this.someText.length >= 100) {
           this.flag = true;
-          axios.post('http://localhost:8090/someText', {someText: this.someText})
+          axios.post('http://localhost:8080/someText', {someText: this.someText})
             .then(response => {
               if (response.status === 200) {
                 this.flag = false;
@@ -81,7 +81,7 @@
               this.result = 'Произошла ошибка. Скорее всего что-то с интернетом...'
             })
         }else{
-          this.result = "Для более точной классификации текста необходимо ввести более 50 символов!";
+          this.result = "Для более точной классификации текста необходимо ввести более 100 символов!";
         }
       }
     }
