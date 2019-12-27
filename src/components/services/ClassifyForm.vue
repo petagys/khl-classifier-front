@@ -16,7 +16,7 @@
                 max-rows="20"
               ></b-form-textarea>
               <b-card-footer class="footer">
-                <b-button variant="primary" v-on:click="request">Проверить</b-button>
+                <b-button :disabled="someText.trim() === ''" variant="primary" v-on:click="request">Проверить</b-button>
               </b-card-footer>
             </b-card>
           </b-col>
@@ -62,14 +62,26 @@
     },
     methods: {
       request: function () {
-        this.flag = true;
-        axios.post('http://localhost:8090/someText', {someText: this.someText})
-          .then(response => {
-            this.flag = false;
-            this.result = response.data;
-          })
-          .catch(e => {
-            this.flag = false;})
+        if (this.someText.length >= 50) {
+          this.flag = true;
+          axios.post('http://localhost:8090/someText', {someText: this.someText})
+            .then(response => {
+              if (response.status === 200) {
+                this.flag = false;
+                this.result = response.data;
+              } else {
+                this.flag = false;
+                this.result = 'Произошла ошибка. Инженеры уже чинят классификатор';
+              }
+
+            })
+            .catch(e => {
+              this.flag = false;
+            })
+        }else{
+          this.result = "Для более точной классификации текста необходимо ввести более 50 символов!";
+          console.log(this.someText.length);
+        }
       }
     }
   }

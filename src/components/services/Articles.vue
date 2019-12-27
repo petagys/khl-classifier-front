@@ -68,8 +68,12 @@
         this.currentPage = 1;
         axios.get('http://localhost:8090/getArticles/' + articles)
           .then(response => {
+            if (response.status === 200){
               this.flag = false;
               this.results = response.data;
+            }else{
+              this.results.push({"Error": "Что-то пошло не так и мы пытаемся это починить. Спасибо за Ваше терпение!"})
+            }
           })
           .catch(e => {
             console.log(e);
